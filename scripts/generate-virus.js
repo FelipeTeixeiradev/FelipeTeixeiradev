@@ -6,55 +6,36 @@ const API_URL = `https://github-contributions-api.jogruber.de/v4/${USERNAME}?y=l
 
 function getData(url) {
   return new Promise((resolve, reject) => {
-    https
-      .get(url, (res) => {
-        let data = "";
+    https.get(url, (res) => {
+      let data = "";
 
-        res.on("data", (chunk) => {
-          data += chunk;
-        });
+      res.on("data", (chunk) => {
+        data += chunk;
+      });
 
-        res.on("end", () => {
-          if (res.statusCode !== 200) {
-            reject(new Error(`Erro HTTP: ${res.statusCode}`));
-            return;
-          }
+      res.on("end", () => {
+        if (res.statusCode !== 200) {
+          reject(new Error(`Erro HTTP: ${res.statusCode}`));
+          return;
+        }
 
-          try {
-            resolve(JSON.parse(data));
-          } catch (error) {
-            reject(error);
-          }
-        });
-      })
-      .on("error", reject);
+        try {
+          resolve(JSON.parse(data));
+        } catch (error) {
+          reject(error);
+        }
+      });
+    }).on("error", reject);
   });
-}
-
-function escapeXml(text) {
-  return String(text)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&apos;");
 }
 
 function createVirus() {
   return `
     <g id="virus">
 
-      <!-- corpo -->
-      <rect
-        x="-15"
-        y="-15"
-        width="30"
-        height="30"
-        rx="5"
-        fill="#ffffff"
-      />
+      <rect x="-15" y="-15" width="30" height="30" rx="5"
+            fill="#ffffff"/>
 
-      <!-- espinhos -->
       <rect x="-21" y="-5" width="6" height="10" fill="#ffffff"/>
       <rect x="15" y="-5" width="6" height="10" fill="#ffffff"/>
       <rect x="-5" y="-21" width="10" height="6" fill="#ffffff"/>
@@ -65,11 +46,9 @@ function createVirus() {
       <rect x="-18" y="11" width="7" height="7" fill="#ffffff"/>
       <rect x="11" y="11" width="7" height="7" fill="#ffffff"/>
 
-      <!-- olhos -->
       <rect x="-9" y="-7" width="6" height="6" fill="#000000"/>
       <rect x="3" y="-7" width="6" height="6" fill="#000000"/>
 
-      <!-- boca -->
       <rect x="-7" y="4" width="14" height="4" fill="#000000"/>
       <rect x="-3" y="8" width="6" height="3" fill="#000000"/>
 
@@ -80,7 +59,6 @@ function createVirus() {
 function generateSVG(data) {
   const CELL = 12;
   const GAP = 4;
-
   const LEFT = 30;
   const TOP = 55;
 
@@ -100,7 +78,6 @@ function generateSVG(data) {
   }
 
   const firstDate = new Date(contributions[0].date + "T00:00:00");
-
   const lastDate = new Date(
     contributions[contributions.length - 1].date + "T00:00:00"
   );
@@ -112,7 +89,6 @@ function generateSVG(data) {
   end.setDate(end.getDate() + (6 - end.getDay()));
 
   const weeks = [];
-
   let current = new Date(start);
 
   while (current <= end) {
@@ -120,7 +96,6 @@ function generateSVG(data) {
 
     for (let row = 0; row < 7; row++) {
       const date = new Date(current);
-
       date.setDate(current.getDate() + row);
 
       const dateString = date.toISOString().slice(0, 10);
@@ -136,40 +111,24 @@ function generateSVG(data) {
     }
 
     weeks.push(week);
-
     current.setDate(current.getDate() + 7);
   }
 
-  const width =
-    LEFT * 2 +
-    weeks.length * WEEK_WIDTH;
-
-  const height =
-    TOP +
-    7 * ROW_HEIGHT +
-    35;
+  const width = LEFT * 2 + weeks.length * WEEK_WIDTH;
+  const height = TOP + 7 * ROW_HEIGHT + 35;
 
   let cells = "";
   let virusPositions = [];
-
-  // ------------------------------------------------------------
-  // Desenha o calendário.
-  // ------------------------------------------------------------
 
   weeks.forEach((week, column) => {
     week.forEach((day, row) => {
       const x = LEFT + column * WEEK_WIDTH;
       const y = TOP + row * ROW_HEIGHT;
-
       const level = day.data.level || 0;
 
       // Preto = nenhum commit
-      // Branco = houve contribuição
-      let fill = "#000000";
-
-      if (level > 0) {
-        fill = "#ffffff";
-      }
+      // Branco = contribuição
+      const fill = level > 0 ? "#ffffff" : "#000000";
 
       cells += `
         <rect
@@ -183,7 +142,6 @@ function generateSVG(data) {
         />
       `;
 
-      // Guarda somente dias com contribuição.
       if (level > 0) {
         virusPositions.push({
           x: x + CELL / 2,
@@ -192,10 +150,6 @@ function generateSVG(data) {
       }
     });
   });
-
-  // ------------------------------------------------------------
-  // Cria a animação do vírus.
-  // ------------------------------------------------------------
 
   let virusAnimation = "";
 
@@ -211,8 +165,7 @@ function generateSVG(data) {
         }
 
         return (
-          index /
-          (virusPositions.length - 1)
+          index / (virusPositions.length - 1)
         ).toFixed(4);
       })
       .join(";");
@@ -233,10 +186,6 @@ function generateSVG(data) {
     `;
   }
 
-  // ------------------------------------------------------------
-  // SVG final.
-  // ------------------------------------------------------------
-
   return `<?xml version="1.0" encoding="UTF-8"?>
 
 <svg
@@ -246,14 +195,12 @@ function generateSVG(data) {
   viewBox="0 0 ${width} ${height}"
 >
 
-  <!-- Fundo -->
   <rect
     width="100%"
     height="100%"
     fill="#000000"
   />
 
-  <!-- Título -->
   <text
     x="${LEFT}"
     y="28"
@@ -265,10 +212,8 @@ function generateSVG(data) {
     FELIPETEIXIRADEV • GITHUB CONTRIBUTIONS
   </text>
 
-  <!-- Calendário -->
   ${cells}
 
-  <!-- Vírus -->
   ${virusAnimation}
 
 </svg>
@@ -298,9 +243,6 @@ async function main() {
   );
 
   console.log("✅ Vírus gerado!");
-  console.log(
-    "📁 dist/github-contribution-virus.svg"
-  );
 }
 
 main().catch((error) => {
