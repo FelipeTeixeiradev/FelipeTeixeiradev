@@ -43,20 +43,27 @@ function escapeXml(text) {
 function createVirus() {
   return `
     <g id="virus">
+
       <!-- corpo -->
-      <rect x="-15" y="-15" width="30" height="30" rx="5"
-            fill="#00ff66"/>
+      <rect
+        x="-15"
+        y="-15"
+        width="30"
+        height="30"
+        rx="5"
+        fill="#ffffff"
+      />
 
       <!-- espinhos -->
-      <rect x="-21" y="-5" width="6" height="10" fill="#00ff66"/>
-      <rect x="15" y="-5" width="6" height="10" fill="#00ff66"/>
-      <rect x="-5" y="-21" width="10" height="6" fill="#00ff66"/>
-      <rect x="-5" y="15" width="10" height="6" fill="#00ff66"/>
+      <rect x="-21" y="-5" width="6" height="10" fill="#ffffff"/>
+      <rect x="15" y="-5" width="6" height="10" fill="#ffffff"/>
+      <rect x="-5" y="-21" width="10" height="6" fill="#ffffff"/>
+      <rect x="-5" y="15" width="10" height="6" fill="#ffffff"/>
 
-      <rect x="-18" y="-18" width="7" height="7" fill="#00ff66"/>
-      <rect x="11" y="-18" width="7" height="7" fill="#00ff66"/>
-      <rect x="-18" y="11" width="7" height="7" fill="#00ff66"/>
-      <rect x="11" y="11" width="7" height="7" fill="#00ff66"/>
+      <rect x="-18" y="-18" width="7" height="7" fill="#ffffff"/>
+      <rect x="11" y="-18" width="7" height="7" fill="#ffffff"/>
+      <rect x="-18" y="11" width="7" height="7" fill="#ffffff"/>
+      <rect x="11" y="11" width="7" height="7" fill="#ffffff"/>
 
       <!-- olhos -->
       <rect x="-9" y="-7" width="6" height="6" fill="#000000"/>
@@ -65,6 +72,7 @@ function createVirus() {
       <!-- boca -->
       <rect x="-7" y="4" width="14" height="4" fill="#000000"/>
       <rect x="-3" y="8" width="6" height="3" fill="#000000"/>
+
     </g>
   `;
 }
@@ -85,27 +93,21 @@ function generateSVG(data) {
     throw new Error("Nenhuma contribuição encontrada.");
   }
 
-  // ------------------------------------------------------------
-  // Organiza os dias por data.
-  // ------------------------------------------------------------
-
   const days = new Map();
 
   for (const item of contributions) {
     days.set(item.date, item);
   }
 
-  // Pega a data inicial e final retornadas pela API.
   const firstDate = new Date(contributions[0].date + "T00:00:00");
+
   const lastDate = new Date(
     contributions[contributions.length - 1].date + "T00:00:00"
   );
 
-  // Ajusta para começar no domingo.
   const start = new Date(firstDate);
   start.setDate(start.getDate() - start.getDay());
 
-  // Ajusta para terminar no sábado.
   const end = new Date(lastDate);
   end.setDate(end.getDate() + (6 - end.getDay()));
 
@@ -161,12 +163,12 @@ function generateSVG(data) {
 
       const level = day.data.level || 0;
 
-      // Branco = nenhum commit
-      // Verde = houve contribuição
-      let fill = "#ffffff";
+      // Preto = nenhum commit
+      // Branco = houve contribuição
+      let fill = "#000000";
 
       if (level > 0) {
-        fill = "#00ff66";
+        fill = "#ffffff";
       }
 
       cells += `
