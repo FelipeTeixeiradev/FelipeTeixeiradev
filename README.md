@@ -1,20 +1,8 @@
 # 👨🏻‍💻 Felipe Teixeira
 
-<p align="center">
-  <img
-    src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=1000&color=00FF66&center=true&vCenter=true&width=600&lines=Desenvolvedor+Backend;PHP+%7C+Laravel+%7C+Java+%7C+C;Dev+viciado+em+tecnologias"
-    alt="Typing SVG"
-  />
-</p>
+<p align="center"> <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=1000&color=FFFFFF&center=true&vCenter=true&width=600&lines=Desenvolvedor+Backend;PHP+%7C+Laravel+%7C+Java+%7C+Node.js" /> </p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/BACKEND-00FF66?style=for-the-badge&logoColor=000000" />
-  <img src="https://img.shields.io/badge/PHP-00FF66?style=for-the-badge&logo=php&logoColor=000000" />
-  <img src="https://img.shields.io/badge/LARAVEL-00FF66?style=for-the-badge&logo=laravel&logoColor=000000" />
-  <img src="https://img.shields.io/badge/C-00FF66?style=for-the-badge&logo=c&logoColor=000000" />
-  <img src="https://img.shields.io/badge/JAVA-00FF66?style=for-the-badge&logo=openjdk&logoColor=000000" />
-  <img src="https://img.shields.io/badge/POO-00FF66?style=for-the-badge&logoColor=000000" />
-</p>
+<p align="center"> <img src="https://img.shields.io/badge/PHP-000000?style=for-the-badge&logo=php&logoColor=FFFFFF" /> <img src="https://img.shields.io/badge/Laravel-000000?style=for-the-badge&logo=laravel&logoColor=FFFFFF" /> <img src="https://img.shields.io/badge/Java-000000?style=for-the-badge&logo=openjdk&logoColor=FFFFFF" /> <img src="https://img.shields.io/badge/Node.js-000000?style=for-the-badge&logo=node.js&logoColor=FFFFFF" /> </p>
 
 ---
 
@@ -28,7 +16,7 @@ Hoje, sou apaixonado por aprender novas tecnologias, trocar conhecimentos e enfr
 
 ---
 
-## 🦠 GitHub Contributions
+## GitHub Contributions
 
 <p align="center">
   <img
